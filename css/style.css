@@ -41,11 +41,12 @@ body {
 .search-logo-normal {
   position: absolute;
   top: 150px;
-  right: 150px;
+  left: calc(100% - 350px);
   width: min-content;
   height: min-content;
-  outline: 1px solid black;
+  /*outline: 1px solid black;*/
   cursor: pointer;
+  transition: 1s;
 }
 
 .search-logo-normal::before {
@@ -60,20 +61,25 @@ body {
 .search-zigzag-normal {
   animation-name: reversed-normal;
   animation-fill-mode: forwards;
-  animation-duration: 1.5s;
+  animation-duration: 3.5s;
   animation-timing-function: linear;
+  animation-iteration-count: infinite;
   stroke: red;
 }
 
 @keyframes reversed-normal {
-  from {
+  0% {
     stroke-dasharray: 0 900;
     stroke-dashoffset: 0;
   }
 
-  to {
+  50% {
     stroke-dasharray: 900  0;
     stroke-dashoffset: 900;
+  }
+  100% {
+    stroke-dasharray: 0  0;
+    stroke-dashoffset: 0;
   }
 }
 
@@ -85,22 +91,24 @@ body {
 
 .search-logo-active {
   position: absolute;
-  top: 150px;
-  left: 150px;
-  width: auto;
-  height: auto;
+  top: 400px;
+  left: 500px;
+  width: 401px;
+  height: 343px;
+  display: none;
   /*outline: 1px solid black;*/
   cursor: pointer;
   transform: rotate(-270deg);
   transition: 1s linear;
 }
 
-.container-spring {
+.container-active-spring {
   position: absolute;
   top: 171px;
   left: 307px;
   width: 123px;
   height: 0;
+  display: none;
   overflow: hidden;
   stroke: rgb(209, 85, 90);
 
