@@ -1,41 +1,67 @@
-const containerNormal = document.querySelector('.search-logo-normal')
-const containerActive = document.querySelector('.search-logo-active')
-const containerActiveSpring = document.querySelector('.container-active-spring')
+// ---------------------- нормальное состояние поиска
+const searchContainerNormal = document.querySelector('.search-logo-normal')
 
-function runSearchActive() {
-    containerActive.style.display = 'block'
-    containerActiveSpring.style.display = 'block'
+function runActiveSearch() {
+    searchContainerNormal.classList.add('search-logo-normal__position-active')
 
-    containerActive.addEventListener(('animationend'), () => {
-        containerActive.style.transform = 'rotate(0)';
+    searchContainerNormal.addEventListener('transitionend', function showActive() {
+        runSearchActiveAnimation()
+        searchContainerNormal.style.display = 'none'
+    })
+}
+
+// запуск активной навигации
+searchContainerNormal.addEventListener('pointerdown', runActiveSearch)
+
+
+// ---------------------- активное состояние поиска
+const searchContainerActive = document.querySelector('.search-logo-active')
+const searchContainerActiveSpring = document.querySelector('.container-active-spring')
+const searchLogoActiveText = document.querySelector('.search-logo-active__text')
+
+function runSearchActiveAnimation() {
+    searchContainerActive.style.display = 'block'
+    searchContainerActiveSpring.style.display = 'block'
+
+    // окончание появления загагулины
+    searchContainerActive.addEventListener(('animationend'), () => {
+        searchContainerActive.style.transform = 'rotate(0)';
     })
 
-    containerActive.addEventListener(('transitionend'), () => {
-        containerActiveSpring.style.height = '192px';
+    // окончание повората загагулины
+    searchContainerActive.addEventListener(('transitionend'), () => {
+        searchContainerActiveSpring.style.height = '192px';
         document.getElementById('search-zigzag-active').style.display = 'none'
         document.getElementById('canvas').style.display = 'block'
     })
 
-    containerActiveSpring.addEventListener(('transitionend'), () => {
-        containerActiveSpring.style.animationName = 'spring-color'
-        document.querySelector('.search-logo-active__text').style.animationName = 'spring-color-text'
-        document.querySelector('.search-logo-active__text').style.display = 'block'
+    // окончание выезжания пружины
+    searchContainerActiveSpring.addEventListener(('transitionend'), () => {
+        searchContainerActiveSpring.style.animationName = 'spring-color'
+        searchLogoActiveText.classList.add('search-logo-active__text--active')
     })
 }
 
+function removeSearchActiveAnimation() {
+    searchContainerActive.style.display = 'none'
+    searchContainerActiveSpring.style.display = 'none'
 
-containerNormal.addEventListener('pointerdown', () => {
-    containerNormal.style.top = '450px'
-    containerNormal.style.left = '584px'
-    containerNormal.style.transform = 'scale(0.8)'
-    containerNormal.style.animationIterationCount = 'revert'
-})
+    searchContainerActive.style.transform = 'rotate(-270deg)';
 
+    searchContainerActiveSpring.style.height = '0';
+    document.getElementById('search-zigzag-active').style.display = 'block'
+    document.getElementById('canvas').style.display = 'none'
 
-containerNormal.addEventListener('transitionend', showActiveSearch)
+    searchContainerActiveSpring.style.animationName = ''
+    searchLogoActiveText.classList.remove('search-logo-active__text--active')
+}
 
-function showActiveSearch() {
-    runSearchActive()
-    containerNormal.style.transform = 'scale(1)'
-    containerNormal.style.display = 'none'
+function searchFullReset() {
+    console.log('searchFullReset')
+    // show normal
+    searchContainerNormal.style.display = 'block'
+    searchContainerNormal.classList.remove('search-logo-normal__position-active')
+
+    // hide active
+    removeSearchActiveAnimation()
 }
