@@ -44,9 +44,7 @@ body {
   left: calc(100% - 350px);
   width: min-content;
   height: min-content;
-  /*outline: 1px solid black;*/
   cursor: pointer;
-  transition: 1s;
 }
 
 .search-logo-normal__position-active {
@@ -54,6 +52,7 @@ body {
   left: 584px;
   transform: scale(0.8);
   pointer-events: none;
+  transition: 5s;
 }
 
 .search-logo-normal::before {
