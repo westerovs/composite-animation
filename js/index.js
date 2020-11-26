@@ -12,6 +12,8 @@ function runSearchActive() {
 
     containerActive.addEventListener(('transitionend'), () => {
         containerActiveSpring.style.height = '192px';
+        document.getElementById('search-zigzag-active').style.display = 'none'
+        document.getElementById('canvas').style.display = 'block'
     })
 
     containerActiveSpring.addEventListener(('transitionend'), () => {
@@ -29,8 +31,11 @@ containerNormal.addEventListener('pointerdown', () => {
     containerNormal.style.animationIterationCount = 'revert'
 })
 
-containerNormal.addEventListener('transitionend', () => {
+
+containerNormal.addEventListener('transitionend', showActiveSearch)
+
+function showActiveSearch() {
     runSearchActive()
     containerNormal.style.transform = 'scale(1)'
     containerNormal.style.display = 'none'
-})
+}

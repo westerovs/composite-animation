@@ -182,3 +182,17 @@ body {
     stroke-dashoffset: 1500;
   }
 }
+
+
+
+/* ============================================ */
+/* ================ CANVAS ==================== */
+/* ============================================ */
+
+
+#canvas {
+  outline: 1px solid black;
+  position: absolute;
+  top: 30px;
+  display: none;
+}
